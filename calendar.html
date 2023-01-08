@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greek month</title>
+    <style>
+        body {
+            background-color: #FFE4C4;
+            /* Ancient Greek colors palette */
+            font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+            text-align: center;
+        }
+
+        form {
+            display: inline-block;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        input[type="date"] {
+            font-size: 18px;
+            padding: 10px;
+        }
+
+        button[type="button"] {
+            font-size: 18px;
+            padding: 10px 20px;
+            background-color: #00BFFF;
+            /* Ancient Greek colors palette */
+            color: #ffffff;
+            border: none;
+            cursor: pointer;
+        }
+
+        #result {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+    </style>
+
+</head>
+
+<body>
+    <form>
+        <label for="date">Enter a date:</label><br>
+        <input type="date" id="date" name="date"><br>
+        <button type="button" onclick="convertDate()">Convert</button>
+    </form>
+    <br>
+    <div id="result"></div>
+
+    <script>
+        function convertDate() {
+            // Get the entered date
+            var date = document.getElementById("date").value;
+
+            // Calculate the number of years that have passed since the beginning of the ancient Greek calendar
+            var yearsPassed = new Date(date).getFullYear() - 1;
+
+            // Calculate the number of days that have passed since the beginning of the year in which the entered date falls
+            var dayOfYear = Math.floor((new Date(date) - new Date(new Date(date).getFullYear(), 0, 0)) / 86400000);
+
+            // Calculate the total number of days that have passed since the beginning of the ancient Greek calendar
+            var totalDays = dayOfYear + (yearsPassed * 365);
+            // Calculate the number of new moons that have occurred since the beginning of the ancient Greek calendar
+            var newMoons = Math.floor(totalDays / 29.53);
+
+            // Use the remainder of the division to determine which month of the ancient Greek calendar the entered date falls in
+            var ancientGreekMonth;
+            switch (newMoons % 12) {
+                case 0: ancientGreekMonth = "Scirophorion"; break;
+                case 1: ancientGreekMonth = "Thargelion"; break;
+                case 2: ancientGreekMonth = "Munychion"; break;
+                case 3: ancientGreekMonth = "Elaphebolion"; break;
+                case 4: ancientGreekMonth = "Anthesterion"; break;
+                case 5: ancientGreekMonth = "Gamelion"; break;
+                case 6: ancientGreekMonth = "Posideon"; break;
+                case 7: ancientGreekMonth = "Maimakterion"; break;
+                case 8: ancientGreekMonth = "Pyanopsion"; break;
+                case 9: ancientGreekMonth = "Boedromion"; break;
+                case 10: ancientGreekMonth = "Metageitnion"; break;
+                case 11: ancientGreekMonth = "Hekatombaion"; break;
+                // default: ancientGreekMonth = "Unknown"; break;
+            }
+
+            // Display the result
+            document.getElementById("result").innerHTML = "The entered date is in the month of " + ancientGreekMonth + " in the ancient Greek calendar.";
+        }
+    </script>
+</body>
+
+</html>
